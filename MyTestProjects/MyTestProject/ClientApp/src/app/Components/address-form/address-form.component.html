@@ -1,0 +1,16 @@
+<h1 id="tableLabel">Address</h1>
+<div class="alert alert-danger" role="alert" *ngIf = "invalidString">
+  <h4 class="alert-heading">Invalid search address</h4>
+  <p>Aww yeah, you successfully read this important alert message. This example text is going to run a bit longer so that you can see how spacing within an alert works with this kind of content.</p>
+  <hr>
+  <p class="mb-0">Whenever you need to, be sure to use margin utilities to keep things nice and tidy.</p>
+</div>
+<div class="input-group mb-3">
+  <input type="text" class="form-control" placeholder="Location address" aria-label="Location address" aria-describedby="button-addon1" [(ngModel)]="addressText">
+  <div class="input-group-append">
+    <button class="btn btn-outline-secondary" type="button" id="button-addon1" (click)="getLocation()">Button</button>
+  </div>
+</div>
+<app-address-information [addressInformation] = "addressResponce" *ngIf = "addressResponce.longitude"></app-address-information>
+
+
