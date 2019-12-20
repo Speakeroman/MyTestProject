@@ -9,7 +9,7 @@ export class AddressFormComponent {
 
   public addressText = "";
   public invalidString = false;
-  public addressResponce = {};
+  public addressResponce = null;
   constructor(private locationService: LocationService) {
   }
 

@@ -18,22 +18,21 @@ namespace MyTestProject.Services
     Task<GoogleTimeZone> GetTimeZoneJsone(Location location, TimeSpan dateTimeSpan);
   }
 
-  [Injectable(LifetimeScope.Singleton)]
   public class LocationService : ILocationService
   {
     public static IConfiguration _configuration { get; private set; }
     private static ILogger _logger;
     private readonly IHttpHandler _client;
-    private string _baseUrl;
-    private string _apiKey;
+    private readonly string _baseUrl;
+    private readonly string _apiKey;
 
     public LocationService(ILogger logger, IConfiguration configuration, IHttpHandler client)
     {
       _client = client;
       _configuration = configuration;
       _logger = logger;
-      _baseUrl = configuration.GetSection("GoogleApiUrl").GetSection("googleUrl").Value;
-      _apiKey = configuration.GetSection("GoogleApiUrl").GetSection("key").Value;
+      _baseUrl = configuration.GetSection("GoogleApiUrl").GetSection("googleUrl")?.Value;
+      _apiKey = configuration.GetSection("GoogleApiUrl").GetSection("key")?.Value;
     }
 
     public async Task<Location> GetGeocodeJsone(string addressText)
@@ -49,18 +48,19 @@ namespace MyTestProject.Services
 
       var content = await httpResponse.Content.ReadAsStringAsync();
       JObject rss = JObject.Parse(content);
-      Location result = new Location();
-      result.FormattedAddress = "No results.";
-      result.Latitude = 0;
-      result.Longitude = 0;
+      Location result = null;
       if (rss["results"].HasValues)
       {
+        result = new Location();
+        result.FormattedAddress = "No results.";
+        result.Latitude = 0;
+        result.Longitude = 0;
         result.Latitude = (double)rss["results"][0]["geometry"]["location"]["lat"];
         result.Longitude = (double)rss["results"][0]["geometry"]["location"]["lng"];
         result.CountryCode = (string)rss["results"][0]["address_components"].Last["short_name"];
         result.FormattedAddress = (string)rss["results"][0]["formatted_address"];
         result.CountryCode = GetContryFromGoogleResponce(rss);
-      }
+      } 
       return result;
     }
 

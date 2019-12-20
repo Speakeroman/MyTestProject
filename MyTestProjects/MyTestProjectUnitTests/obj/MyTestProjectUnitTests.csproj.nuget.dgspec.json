@@ -1,23 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Project\\Investigation\\MyTestProjects\\MyTestProjectUnitTests\\MyTestProjectUnitTests.csproj": {}
+    "H:\\Repository\\GitRepo\\MyTestProject\\MyTestProjects\\MyTestProjectUnitTests\\MyTestProjectUnitTests.csproj": {}
   },
   "projects": {
-    "D:\\Project\\Investigation\\MyTestProjects\\MyTestProjectUnitTests\\MyTestProjectUnitTests.csproj": {
+    "H:\\Repository\\GitRepo\\MyTestProject\\MyTestProjects\\MyTestProjectUnitTests\\MyTestProjectUnitTests.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Project\\Investigation\\MyTestProjects\\MyTestProjectUnitTests\\MyTestProjectUnitTests.csproj",
+        "projectUniqueName": "H:\\Repository\\GitRepo\\MyTestProject\\MyTestProjects\\MyTestProjectUnitTests\\MyTestProjectUnitTests.csproj",
         "projectName": "MyTestProjectUnitTests",
-        "projectPath": "D:\\Project\\Investigation\\MyTestProjects\\MyTestProjectUnitTests\\MyTestProjectUnitTests.csproj",
-        "packagesPath": "C:\\Users\\Roman_Vorobets\\.nuget\\packages\\",
-        "outputPath": "D:\\Project\\Investigation\\MyTestProjects\\MyTestProjectUnitTests\\obj\\",
+        "projectPath": "H:\\Repository\\GitRepo\\MyTestProject\\MyTestProjects\\MyTestProjectUnitTests\\MyTestProjectUnitTests.csproj",
+        "packagesPath": "C:\\Users\\Speaker\\.nuget\\packages\\",
+        "outputPath": "H:\\Repository\\GitRepo\\MyTestProject\\MyTestProjects\\MyTestProjectUnitTests\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
-        ],
         "configFilePaths": [
-          "C:\\Users\\Roman_Vorobets\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Speaker\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -25,14 +22,13 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "D:\\Project\\Construct\\Platform2\\develop\\packages": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "netcoreapp3.1": {
             "projectReferences": {
-              "D:\\Project\\Investigation\\MyTestProjects\\MyTestProject\\MyTestProject.csproj": {
-                "projectPath": "D:\\Project\\Investigation\\MyTestProjects\\MyTestProject\\MyTestProject.csproj"
+              "H:\\Repository\\GitRepo\\MyTestProject\\MyTestProjects\\MyTestProject\\MyTestProject.csproj": {
+                "projectPath": "H:\\Repository\\GitRepo\\MyTestProject\\MyTestProjects\\MyTestProject\\MyTestProject.csproj"
               }
             }
           }
@@ -85,20 +81,17 @@
         }
       }
     },
-    "D:\\Project\\Investigation\\MyTestProjects\\MyTestProject\\MyTestProject.csproj": {
+    "H:\\Repository\\GitRepo\\MyTestProject\\MyTestProjects\\MyTestProject\\MyTestProject.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Project\\Investigation\\MyTestProjects\\MyTestProject\\MyTestProject.csproj",
+        "projectUniqueName": "H:\\Repository\\GitRepo\\MyTestProject\\MyTestProjects\\MyTestProject\\MyTestProject.csproj",
         "projectName": "MyTestProject",
-        "projectPath": "D:\\Project\\Investigation\\MyTestProjects\\MyTestProject\\MyTestProject.csproj",
-        "packagesPath": "C:\\Users\\Roman_Vorobets\\.nuget\\packages\\",
-        "outputPath": "D:\\Project\\Investigation\\MyTestProjects\\MyTestProject\\obj\\",
+        "projectPath": "H:\\Repository\\GitRepo\\MyTestProject\\MyTestProjects\\MyTestProject\\MyTestProject.csproj",
+        "packagesPath": "C:\\Users\\Speaker\\.nuget\\packages\\",
+        "outputPath": "H:\\Repository\\GitRepo\\MyTestProject\\MyTestProjects\\MyTestProject\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
-        ],
         "configFilePaths": [
-          "C:\\Users\\Roman_Vorobets\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Speaker\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -106,7 +99,6 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "D:\\Project\\Construct\\Platform2\\develop\\packages": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {

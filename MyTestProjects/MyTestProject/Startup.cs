@@ -5,6 +5,9 @@ using Microsoft.AspNetCore.SpaServices.AngularCli;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
+using MyTestProject.Models;
+using MyTestProject.Services;
 
 namespace MyTestProject
 {
@@ -25,15 +28,12 @@ namespace MyTestProject
       services.AddSpaStaticFiles(configuration =>
       {
         configuration.RootPath = "ClientApp/dist";
-      });
+      });;
+      var logger = services.CreateServiceProvider().GetService<ILogger<AppLog>>();
+      services.AddSingleton(typeof(ILogger), logger);
+      services.AddSingleton<ILocationService, LocationService>();
 
     }
-
-    //public void ConfigureContainer(ContainerBuilder builder)
-    //{
-    //  //configure auto fac here
-    //  builder.RegisterModule(new ContainerModule(Configuration));
-    //}
 
     // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
     public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

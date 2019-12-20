@@ -11,7 +11,7 @@ namespace MyTestProject.Services
 
   public class MyHttpClientHandler : IHttpHandler
   {
-    private HttpClient _client = new HttpClient();
+    private readonly HttpClient _client = new HttpClient();
 
     public async Task<HttpResponseMessage> GetAsync(string url)
     {

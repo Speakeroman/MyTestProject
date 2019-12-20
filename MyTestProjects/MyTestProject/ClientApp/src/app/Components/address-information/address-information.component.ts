@@ -7,14 +7,13 @@ import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 export class AddressInformationComponent implements OnChanges {
   @Input() addressInformation;
   public formatedTime : string;
-  public formatedDate : string;
+  public formatedDate: string;
 
   constructor() {
     console.log(this.addressInformation);
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    console.log(this.addressInformation);
     this.getLocaTimeForTimeZone();
   }
 

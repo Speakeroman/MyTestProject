@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Reflection;
-using Castle.Core;
 using Castle.MicroKernel.Registration;
 using Castle.Windsor;
 using Castle.Windsor.MsDependencyInjection;
@@ -12,16 +11,12 @@ namespace MyTestProject
 {
   public static class ServiceProviderSetup
   {
-    /// <summary>
-    /// runtime register DI
-    /// </summary>
     public static IServiceProvider CreateServiceProvider(this IServiceCollection services)
     {
       var container = new WindsorContainer();
 
       container.RegisterTypes(Assembly.GetExecutingAssembly());
-      services.AddSingleton<ILocationService, LocationService>();
-
+      services.AddSingleton<IHttpHandler, MyHttpClientHandler>();
       return WindsorRegistrationHelper.CreateServiceProvider(container, services);
     }
 
@@ -30,18 +25,6 @@ namespace MyTestProject
       container.Register(Types.FromAssembly(assembly).Pick()
                     .WithService.DefaultInterfaces().If(t => Attribute.IsDefined(t, typeof(InjectableAttribute)))
                     .Configure(s => new Func<ComponentRegistration<object>>[] { s.LifestyleTransient, s.LifestyleSingleton }[(int)((Attribute.GetCustomAttribute(s.Implementation, typeof(InjectableAttribute)) as InjectableAttribute).Lifetime)].Invoke()));
-    }
-
-    /// <summary>
-    /// integration tests
-    /// </summary>
-    public static IServiceProvider CreateStubServiceProvider(this IServiceCollection services)
-    {
-      var container = new WindsorContainer();
-      container.RegisterTypes(Assembly.GetExecutingAssembly());
-      services.AddSingleton<ILocationService, LocationService>();
-
-      return WindsorRegistrationHelper.CreateServiceProvider(container, services);
     }
   }
 }
