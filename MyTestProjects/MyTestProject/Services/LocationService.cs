@@ -4,11 +4,10 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
-using MyTestProject.Utils;
-using Newtonsoft.Json.Linq;
-using MyTestProject.Models;
-using System.Collections.Generic;
+using System.Web;
+using MyTestProject.DTO;
 using System.Linq;
+using System.Globalization;
 
 namespace MyTestProject.Services
 {
@@ -37,7 +36,7 @@ namespace MyTestProject.Services
 
     public async Task<Location> GetGeocodeJsone(string addressText)
     {
-      var encodedAddress = TextUtils.EncodeText(addressText);
+      var encodedAddress = HttpUtility.UrlEncode(addressText);
       HttpResponseMessage httpResponse = await _client.GetAsync($"{_baseUrl}/geocode/json?address={encodedAddress}&key={_apiKey}");
 
       if (!httpResponse.IsSuccessStatusCode)
@@ -47,20 +46,29 @@ namespace MyTestProject.Services
       }
 
       var content = await httpResponse.Content.ReadAsStringAsync();
-      JObject rss = JObject.Parse(content);
+      GeocodeResponse deserializedResponce = JsonConvert.DeserializeObject<GeocodeResponse>(content);
       Location result = null;
-      if (rss["results"].HasValues)
+      if (deserializedResponce.Status == "OK" && deserializedResponce.Results.Length != 0)
       {
         result = new Location();
-        result.FormattedAddress = "No results.";
-        result.Latitude = 0;
-        result.Longitude = 0;
-        result.Latitude = (double)rss["results"][0]["geometry"]["location"]["lat"];
-        result.Longitude = (double)rss["results"][0]["geometry"]["location"]["lng"];
-        result.CountryCode = (string)rss["results"][0]["address_components"].Last["short_name"];
-        result.FormattedAddress = (string)rss["results"][0]["formatted_address"];
-        result.CountryCode = GetContryFromGoogleResponce(rss);
-      } 
+        result.Latitude = deserializedResponce.Results.Select(x => x.Geometry.Location.Lat).FirstOrDefault();
+        result.Longitude = deserializedResponce.Results.Select(x => x.Geometry.Location.Lng).FirstOrDefault();
+
+        var country = deserializedResponce.Results.Select(x => x.AddressComponents.Where(y => y.Types.Contains("country"))).FirstOrDefault().FirstOrDefault().ShortName;
+        
+        var cultureInfosList = CultureInfo.GetCultures(CultureTypes.AllCultures).Where(c => c.Name.EndsWith("-" + country));
+        result.CountryCode = country != "GB"? cultureInfosList.FirstOrDefault().ToString() : cultureInfosList.LastOrDefault().ToString();
+
+        result.FormattedAddress = deserializedResponce.Results.Select(x => x.FormatedAddress).FirstOrDefault();
+
+        var utcTimeNow = DateTime.UtcNow;
+        TimeSpan utcDateNowSpan = utcTimeNow - new DateTime(1970, 1, 1, 0, 0, 0);
+        var googleTimeZoneResponce = this.GetTimeZoneJsone(result, utcDateNowSpan).Result;
+        if (googleTimeZoneResponce.Status == "OK")
+        {
+          result.GoogleTimeZone = googleTimeZoneResponce;
+        }
+      }
       return result;
     }
 
@@ -80,24 +88,6 @@ namespace MyTestProject.Services
       var result = JsonConvert.DeserializeObject<GoogleTimeZone>(content);
 
       return result;
-    }
-
-    private static string GetContryFromGoogleResponce(JObject rss)
-    {
-      string countryName = string.Empty;
-      IEnumerable<JToken> short_name = rss.SelectTokens("$.results[0].address_components").FirstOrDefault();
-      var jResult = rss["results"][0];
-      var jAddressComponents = jResult["address_components"];
-      foreach (var jAddressComponent in jAddressComponents)
-      {
-        var jTypes = jAddressComponent["types"];
-        if (jTypes.Any(t => t.ToString() == "country"))
-        {
-          countryName = jAddressComponent["short_name"].ToString();
-        }
-      }
-
-      return countryName;
     }
   }
 }

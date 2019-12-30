@@ -4,7 +4,6 @@ using Castle.MicroKernel.Registration;
 using Castle.Windsor;
 using Castle.Windsor.MsDependencyInjection;
 using Microsoft.Extensions.DependencyInjection;
-using MyTestProject.Services;
 using MyTestProject.Utils;
 
 namespace MyTestProject
@@ -16,7 +15,7 @@ namespace MyTestProject
       var container = new WindsorContainer();
 
       container.RegisterTypes(Assembly.GetExecutingAssembly());
-      services.AddSingleton<IHttpHandler, MyHttpClientHandler>();
+      
       return WindsorRegistrationHelper.CreateServiceProvider(container, services);
     }
 

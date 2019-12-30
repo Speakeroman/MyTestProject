@@ -6,7 +6,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
-using MyTestProject.Models;
+using MyTestProject.Logger;
 using MyTestProject.Services;
 
 namespace MyTestProject
@@ -32,7 +32,7 @@ namespace MyTestProject
       var logger = services.CreateServiceProvider().GetService<ILogger<AppLog>>();
       services.AddSingleton(typeof(ILogger), logger);
       services.AddSingleton<ILocationService, LocationService>();
-
+      services.AddSingleton<IHttpHandler, MyHttpClientHandler>();
     }
 
     // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
